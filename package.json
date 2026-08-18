@@ -1,0 +1,5 @@
+{
+  "name": "fang-skills",
+  "version": "1.0.0",
+  "bin": { "fang-skills": "./install.ts" }
+}
