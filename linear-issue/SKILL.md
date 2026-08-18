@@ -7,16 +7,28 @@ description: Use when creating or updating individual Linear issues in a project
 
 Uma issue descreve um resultado. Trabalho que se divide em resultados independentes vira issues separadas, ligadas por relação de bloqueio.
 
-O corpo responde três coisas: o que falta ou está errado, o arquivo ou rota concreta, e o que significa estar pronta. Sem as três, quem pegar a issue refaz a investigação do zero.
+O corpo responde três coisas: o que falta ou está errado, o arquivo ou rota concreta, e o que significa estar pronta.
 
-Verificar no código antes de registrar. Achado repassado por outro agente ou por revisão automática é suspeito até ser confirmado, e contagem é onde isso falha com mais frequência.
+Toda afirmação que vira issue aponta para arquivo, rota ou símbolo conferido no código. Achado vindo de outro agente, de revisão automática ou de leitura anterior é suspeito até ser confirmado. Contagem e lista é onde isso falha: "sete chamadas afetadas" e "três serviços atingidos" viram issue com número errado, e o número errado sobrevive muito depois de quem escreveu ter perdido o contexto.
 
-Labels saem da lista existente do workspace. Criar label é decisão de vocabulário, então é pergunta.
+O que não deu para confirmar entra como pergunta, não como fato.
 
-Status, estimate e cycle não são preenchidos. Prioridade e prazo são perguntados quando não vierem no pedido.
+Labels saem da lista existente do workspace. Label nova é decisão de vocabulário, então é pergunta, nunca efeito colateral.
 
-Bloqueio é relação, não frase na descrição.
+Status, estimate e cycle não são preenchidos. Status é o sinal que uma pessoa dá ao resto do time. Prioridade e prazo são perguntados quando não vierem no pedido.
 
-Duplicata encontrada é sinalizada. Fechar ou mesclar issue alheia é decisão de quem toca o projeto.
+Bloqueio é relação, não frase na descrição. O Linear ordena por relação e não lê prosa.
 
-Para semear um projeto inteiro a partir de PR ou branch, a skill é `linear-seed`.
+Duplicata encontrada é sinalizada na descrição da issue. Fechar ou mesclar issue alheia é decisão de quem toca o projeto.
+
+## MCP
+
+`list_issues` e `list_projects` estouram o limite de complexidade do servidor quando `fields` pede muita coisa de uma vez. Pedir só o necessário.
+
+Em `patch`, para remover uma seção final use `replace` com o texto exato; `replace_range` exige um `to` que permanece no lugar.
+
+Workspace: time `Devs`, key `DEV`.
+
+## Projeto inteiro
+
+Para semear projeto e issues a partir de PR ou branch, a skill é `linear-seed`.
