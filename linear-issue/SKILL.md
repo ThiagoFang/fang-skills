@@ -5,30 +5,32 @@ description: Use when creating or updating individual Linear issues in a project
 
 # linear-issue
 
-Uma issue descreve um resultado. Trabalho que se divide em resultados independentes vira issues separadas, ligadas por relação de bloqueio.
+Issue titles and descriptions are written in Portuguese. The team reads them.
 
-O corpo responde três coisas: o que falta ou está errado, o arquivo ou rota concreta, e o que significa estar pronta.
+An issue describes one outcome. Work that splits into independent outcomes becomes separate issues, tied by a blocking relation.
 
-Toda afirmação que vira issue aponta para arquivo, rota ou símbolo conferido no código. Achado vindo de outro agente, de revisão automática ou de leitura anterior é suspeito até ser confirmado. Contagem e lista é onde isso falha: "sete chamadas afetadas" e "três serviços atingidos" viram issue com número errado, e o número errado sobrevive muito depois de quem escreveu ter perdido o contexto.
+The body answers three things: what is missing or wrong, the concrete file or route, and what done means.
 
-O que não deu para confirmar entra como pergunta, não como fato.
+Every claim that becomes an issue points at a file, route, or symbol checked in the code. A finding relayed by another agent, by automated review, or by an earlier read is suspect until confirmed. Counts and lists are where this fails: "seven affected callers" and "three services hit" become an issue with the wrong number, and the wrong number outlives whoever wrote it.
 
-Labels saem da lista existente do workspace. Label nova é decisão de vocabulário, então é pergunta, nunca efeito colateral.
+What could not be confirmed goes in as a question, not as a fact.
 
-Status, estimate e cycle não são preenchidos. Status é o sinal que uma pessoa dá ao resto do time. Prioridade e prazo são perguntados quando não vierem no pedido.
+Labels come from the workspace's existing list. A new label is a vocabulary decision, so it is a question, never a side effect.
 
-Bloqueio é relação, não frase na descrição. O Linear ordena por relação e não lê prosa.
+Status, estimate, and cycle are not filled in. Status is the signal a person gives the rest of the team. Priority and deadline are asked when the request does not carry them.
 
-Duplicata encontrada é sinalizada na descrição da issue. Fechar ou mesclar issue alheia é decisão de quem toca o projeto.
+Blocking is a relation, not a sentence in the description. Linear orders by relation and does not read prose.
+
+A duplicate that turns up is flagged in the issue description. Closing or merging someone else's issue is a decision for whoever owns the project.
 
 ## MCP
 
-`list_issues` e `list_projects` estouram o limite de complexidade do servidor quando `fields` pede muita coisa de uma vez. Pedir só o necessário.
+`list_issues` and `list_projects` blow past the server's complexity limit when `fields` asks for too much at once. Ask for only what is needed.
 
-Em `patch`, para remover uma seção final use `replace` com o texto exato; `replace_range` exige um `to` que permanece no lugar.
+In `patch`, to remove a trailing section use `replace` with the exact text; `replace_range` requires a `to` that stays in place.
 
-Workspace: time `Devs`, key `DEV`.
+Workspace: team `Devs`, key `DEV`.
 
-## Projeto inteiro
+## Whole projects
 
-Para semear projeto e issues a partir de PR ou branch, a skill é `linear-seed`.
+To seed a project and its issues from a PR or branch, the skill is `linear-seed`.

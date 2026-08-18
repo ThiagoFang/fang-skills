@@ -5,26 +5,26 @@ description: Use when turning a PR, branch, or written description into a Linear
 
 # linear-seed
 
-Transformar uma fonte (PR, branch, descrição escrita) em projeto e issues do Linear.
+Turn a source (PR, branch, written description) into a Linear project and its issues. Everything written into Linear is in Portuguese.
 
-Cada issue segue `linear-issue`, que é a dona das regras de issue: verificação, labels, campos, bloqueio, duplicata e as armadilhas do MCP. Aqui fica o que é do projeto.
+Each issue follows `linear-issue`, which owns the issue rules: verification, labels, fields, blocking, duplicates, and the MCP traps. What is left here belongs to the project.
 
-## Campos
+## Fields
 
-Derivar da fonte: título, summary, descrição, decomposição em issues, relações de bloqueio, labels, link para a fonte.
+Derive from the source: title, summary, description, the split into issues, blocking relations, labels, link to the source.
 
-Perguntar, numa chamada só, depois da investigação: prioridade e prazo. Responsável apenas quando a fonte deixa ambíguo. Junto vão as ambiguidades que a leitura levantou, que é a parte que formulário fixo não cobre.
+Ask, in a single call, after the investigation: priority and deadline. Assignee only when the source leaves it ambiguous. The ambiguities the read turned up go in the same call, and that is the part a fixed form does not cover.
 
-Não preencher status nem milestone.
+Do not fill status or milestone.
 
-## Descrição
+## Description
 
-A descrição do projeto explica o que mudou estruturalmente e por quê. Estado não entra: as issues já mostram, e a seção de estado envelhece antes do resto do texto.
+The project description explains what changed structurally and why. Current state stays out: the issues already show it, and a state section ages before the rest of the text.
 
 ## Links
 
-O link da fonte vai no projeto. Nas issues, só naquelas que apontam para código específico dentro dela.
+The source link goes on the project. On issues, only the ones pointing at specific code inside it.
 
 ## MCP
 
-Label de projeto não é criável pelo MCP, só label de issue. As de projeto ficam para a interface.
+Project labels cannot be created through the MCP, only issue labels. Project ones are left to the interface.
