@@ -6,7 +6,7 @@ import { mkdir, readlink, rm, symlink } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-const CLONE_URL = "git@github.com:ThiagoFang/fang-skills.git";
+const CLONE_URL = "https://github.com/ThiagoFang/fang-skills.git";
 
 const HOSTS = [
   { name: "Claude Code", root: join(homedir(), ".claude") },
