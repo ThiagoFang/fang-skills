@@ -9,6 +9,8 @@ import { join } from "node:path";
 
 const CLONE_URL = "https://github.com/ThiagoFang/fang-skills.git";
 
+const FALLBACK = { team: "Devs", key: "DEV", language: "Portuguese" };
+
 const HOSTS = [
   { name: "Claude Code", root: join(homedir(), ".claude") },
   { name: "Codex", root: join(homedir(), ".codex") },
@@ -66,13 +68,13 @@ function readDefaults(source: string, skills: string[]) {
     const text = readFileSync(path, "utf8");
 
     return {
-      team: text.match(/^Team:\s*`?([^`\n]+)`?$/m)?.[1] ?? "",
-      key: text.match(/^Key:\s*`?([^`\n]+)`?$/m)?.[1] ?? "",
-      language: text.match(/^Language[^:]*:\s*(.+)$/m)?.[1] ?? "English",
+      team: text.match(/^Team:\s*`?([^`\n]+)`?$/m)?.[1] ?? FALLBACK.team,
+      key: text.match(/^Key:\s*`?([^`\n]+)`?$/m)?.[1] ?? FALLBACK.key,
+      language: text.match(/^Language[^:]*:\s*(.+)$/m)?.[1] ?? FALLBACK.language,
     };
   }
 
-  return { team: "", key: "", language: "English" };
+  return FALLBACK;
 }
 
 async function pickHosts() {
@@ -104,7 +106,6 @@ async function askWorkspace(defaults: ReturnType<typeof readDefaults>) {
     team: unwrap(
       await p.text({
         message: "Linear team name",
-        placeholder: "Devs",
         initialValue: defaults.team,
         validate: (value) => (value.trim() ? undefined : "Required."),
       }),
@@ -112,7 +113,6 @@ async function askWorkspace(defaults: ReturnType<typeof readDefaults>) {
     key: unwrap(
       await p.text({
         message: "Linear team key",
-        placeholder: "DEV",
         initialValue: defaults.key,
         validate: (value) => (value.trim() ? undefined : "Required."),
       }),
