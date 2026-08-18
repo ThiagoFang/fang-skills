@@ -11,6 +11,8 @@ const CLONE_URL = "https://github.com/ThiagoFang/fang-skills.git";
 
 const FALLBACK = { team: "Devs", key: "DEV", language: "Portuguese" };
 
+const LANGUAGES = ["Portuguese", "English", "Spanish", "French", "German"];
+
 const HOSTS = [
   { name: "Claude Code", root: join(homedir(), ".claude") },
   { name: "Codex", root: join(homedir(), ".codex") },
@@ -57,6 +59,10 @@ function listSkills(source: string) {
     .sort((a, b) => a.value.localeCompare(b.value));
 }
 
+function needsWorkspace(source: string, name: string) {
+  return readFileSync(join(source, name, "SKILL.md"), "utf8").includes("workspace.md");
+}
+
 function readDefaults(source: string, skills: string[]) {
   for (const name of skills) {
     const path = join(source, name, "workspace.md");
@@ -101,6 +107,29 @@ async function pickHosts() {
   return installed.filter((host) => chosen.includes(host.root));
 }
 
+async function askLanguage(initial: string) {
+  const options = LANGUAGES.includes(initial) ? LANGUAGES : [initial, ...LANGUAGES];
+
+  const chosen = unwrap(
+    await p.select({
+      message: "Language to write in",
+      options: [...options.map((value) => ({ value, label: value })), { value: "", label: "Other" }],
+      initialValue: initial,
+    }),
+  );
+
+  if (chosen) {
+    return chosen;
+  }
+
+  return unwrap(
+    await p.text({
+      message: "Which language",
+      validate: (value) => (value.trim() ? undefined : "Required."),
+    }),
+  ).trim();
+}
+
 async function askWorkspace(defaults: ReturnType<typeof readDefaults>) {
   return {
     team: unwrap(
@@ -117,9 +146,7 @@ async function askWorkspace(defaults: ReturnType<typeof readDefaults>) {
         validate: (value) => (value.trim() ? undefined : "Required."),
       }),
     ).trim(),
-    language: unwrap(
-      await p.text({ message: "Language to write in", initialValue: defaults.language }),
-    ).trim(),
+    language: await askLanguage(defaults.language),
   };
 }
 
@@ -183,7 +210,8 @@ const chosen = unwrap(
   }),
 );
 
-const workspace = await askWorkspace(readDefaults(source, chosen));
+const configurable = chosen.filter((name) => needsWorkspace(source, name));
+const workspace = configurable.length ? await askWorkspace(readDefaults(source, configurable)) : undefined;
 const installed = new Set<string>();
 
 for (const host of hosts) {
@@ -199,8 +227,10 @@ for (const host of hosts) {
   }
 }
 
-for (const name of installed) {
-  await writeWorkspace(name, source, workspace);
+if (workspace) {
+  for (const name of configurable.filter((name) => installed.has(name))) {
+    await writeWorkspace(name, source, workspace);
+  }
 }
 
 p.outro(`Skills live in ${source}. Update them with git pull.`);
