@@ -5,7 +5,7 @@ description: Use when creating or updating individual Linear issues in a project
 
 # linear-issue
 
-Issue titles and descriptions are written in Portuguese. The team reads them.
+Read `workspace.md` next to this file before writing to Linear: it carries the team, the issue key, and the language issues are written in.
 
 An issue describes one outcome. Work that splits into independent outcomes becomes separate issues, tied by a blocking relation.
 
@@ -28,8 +28,6 @@ A duplicate that turns up is flagged in the issue description. Closing or mergin
 `list_issues` and `list_projects` blow past the server's complexity limit when `fields` asks for too much at once. Ask for only what is needed.
 
 In `patch`, to remove a trailing section use `replace` with the exact text; `replace_range` requires a `to` that stays in place.
-
-Workspace: team `Devs`, key `DEV`.
 
 ## Whole projects
 

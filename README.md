@@ -23,4 +23,10 @@ Symlink rather than copy so `git pull` updates the skills in use. To scope them 
 
 ## Adapt to your workspace
 
-Two things are specific to where these were written. `linear-issue` ends with a team and key (`Devs`, `DEV`) — swap in yours, or delete the line and answer when Claude asks. Both skills also state that everything written into Linear is in Portuguese; change that to your team's language.
+Each skill reads a `workspace.md` in its own directory for the team, the key, and the language it writes in. That file is not versioned, so copy the template into every skill you installed:
+
+```sh
+cp ~/fang-skills/workspace.example.md ~/fang-skills/linear-issue/workspace.md
+```
+
+Edit the copy, never the `SKILL.md` — editing a tracked file makes the next `git pull` conflict.

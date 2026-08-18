@@ -5,9 +5,11 @@ description: Use when turning a PR, branch, or written description into a Linear
 
 # linear-seed
 
-Turn a source (PR, branch, written description) into a Linear project and its issues. Everything written into Linear is in Portuguese.
+Turn a source (PR, branch, written description) into a Linear project and its issues.
 
 Each issue follows `linear-issue`, which owns the issue rules: verification, labels, fields, blocking, duplicates, and the MCP traps. What is left here belongs to the project.
+
+Read `workspace.md` next to this file before writing to Linear: it carries the team, the project key, and the language everything is written in.
 
 ## Fields
 
