@@ -1,15 +1,15 @@
 # fang-skills
 
-Skills do Claude Code para trabalhar no Linear.
+Claude Code skills for working in Linear.
 
-| Skill | Quando |
+| Skill | When |
 |---|---|
-| `linear-seed` | Transformar uma PR, branch ou descrição escrita em projeto com issues, ou realinhar um projeto que ficou defasado do código. |
-| `linear-issue` | Criar ou atualizar issues avulsas em um projeto que já existe. |
+| `linear-seed` | Turn a PR, branch, or written description into a project with its issues, or realign a project that has drifted from the code. |
+| `linear-issue` | Create or update standalone issues in a project that already exists. |
 
-As duas exigem o MCP do Linear conectado (`claude mcp add`).
+Both need the Linear MCP connected (`claude mcp add`).
 
-## Instalar
+## Install
 
 ```sh
 git clone git@github.com:ThiagoFang/fang-skills.git ~/fang-skills
@@ -17,10 +17,10 @@ ln -s ~/fang-skills/linear-seed  ~/.claude/skills/linear-seed
 ln -s ~/fang-skills/linear-issue ~/.claude/skills/linear-issue
 ```
 
-Symlink em vez de cópia para que `git pull` atualize as skills em uso. Para valer só em um projeto, o destino é `.claude/skills/` do repositório.
+Symlink rather than copy so `git pull` updates the skills in use. To scope them to a single project, the target is that repository's `.claude/skills/`.
 
-Depois, `/linear-seed` e `/linear-issue` ficam disponíveis, e o Claude também as carrega sozinho quando a tarefa bate com a descrição.
+`/linear-seed` and `/linear-issue` then become available, and Claude also loads them on its own when the task matches the description.
 
-## Adaptar ao seu workspace
+## Adapt to your workspace
 
-`linear-seed` termina com o time e a key do workspace onde foi escrita (`Devs`, `DEV`). Troque pelos seus, ou apague a linha e responda quando o Claude perguntar.
+Two things are specific to where these were written. `linear-issue` ends with a team and key (`Devs`, `DEV`) — swap in yours, or delete the line and answer when Claude asks. Both skills also state that everything written into Linear is in Portuguese; change that to your team's language.
