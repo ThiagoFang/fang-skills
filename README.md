@@ -1,6 +1,6 @@
 # fang-skills
 
-Claude Code skills for working in Linear.
+Skills for working in Linear, for Claude Code and Codex.
 
 | Skill | When |
 |---|---|
@@ -15,11 +15,11 @@ Both need the Linear MCP connected (`claude mcp add`).
 bunx github:ThiagoFang/fang-skills
 ```
 
-It asks which skills to install and for your Linear team, key, and language, then clones into `~/.fang-skills` and symlinks the chosen skills into `~/.claude/skills`. Run it from an existing clone and it uses that clone instead. Running it again is safe: links already in place and answers already given are left alone.
+It asks which skills to install, whether they go to Claude Code, Codex, or both, and for your Linear team, key, and language. Then it clones into `~/.fang-skills` and symlinks the chosen skills into `~/.claude/skills`, `~/.codex/skills`, or both. Only hosts already on the machine are offered. Run it from an existing clone and it uses that clone instead. Running it again is safe: links already in place and answers already given are left alone.
 
-Symlinks rather than copies, so `git pull` in the clone updates the skills in use.
+Symlinks rather than copies, so `git pull` in the clone updates every install at once.
 
-`/linear-seed` and `/linear-issue` then become available, and Claude also loads them on its own when the task matches the description.
+`/linear-seed` and `/linear-issue` then become available, and the agent also loads them on its own when the task matches the description.
 
 To scope a skill to a single project instead, symlink it into that repository's `.claude/skills/`.
 

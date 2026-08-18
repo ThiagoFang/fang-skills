@@ -7,7 +7,11 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const CLONE_URL = "git@github.com:ThiagoFang/fang-skills.git";
-const SKILLS_DIR = join(homedir(), ".claude", "skills");
+
+const HOSTS = [
+  { name: "Claude Code", root: join(homedir(), ".claude") },
+  { name: "Codex", root: join(homedir(), ".codex") },
+];
 
 async function resolveSource() {
   if (existsSync(join(import.meta.dir, ".git"))) {
@@ -50,6 +54,34 @@ function pickSkills(available: string[]) {
     .filter(Boolean);
 }
 
+function pickHosts() {
+  const installed = HOSTS.filter((host) => existsSync(host.root));
+
+  if (!installed.length) {
+    console.error("Neither ~/.claude nor ~/.codex exists. Install one of them first.");
+    process.exit(1);
+  }
+
+  if (installed.length === 1) {
+    console.log(`\nInstalling for ${installed[0].name}, the only one found.`);
+    return installed;
+  }
+
+  console.log("\nInstall for:");
+  installed.forEach((host, index) => console.log(`  ${index + 1}. ${host.name}`));
+
+  const answer = prompt("Which ones? (numbers, or enter for all)")?.trim();
+
+  if (!answer) {
+    return installed;
+  }
+
+  return answer
+    .split(/[\s,]+/)
+    .map((token) => installed[Number(token) - 1])
+    .filter(Boolean);
+}
+
 function askWorkspace() {
   const team = prompt("Linear team name?")?.trim();
   const key = prompt("Linear team key?")?.trim();
@@ -62,8 +94,8 @@ function askWorkspace() {
   return { team, key, language: prompt("Language to write in? (English)")?.trim() || "English" };
 }
 
-async function linkSkill(name: string, source: string) {
-  const target = join(SKILLS_DIR, name);
+async function linkSkill(name: string, source: string, skillsDir: string) {
+  const target = join(skillsDir, name);
   const origin = join(source, name);
   const existing = lstatSync(target, { throwIfNoEntry: false });
 
@@ -103,24 +135,42 @@ async function writeWorkspace(name: string, source: string, values: ReturnType<t
   console.log(`  ${name}: workspace.md written`);
 }
 
+const hosts = pickHosts();
+
+if (!hosts.length) {
+  console.error("No host selected.");
+  process.exit(1);
+}
+
 const source = await resolveSource();
 const chosen = pickSkills(listSkills(source));
 
 if (!chosen.length) {
-  console.error("Nothing selected.");
+  console.error("No skill selected.");
   process.exit(1);
 }
 
 const workspace = askWorkspace();
 
-await mkdir(SKILLS_DIR, { recursive: true });
+const installed = new Set<string>();
+
+for (const host of hosts) {
+  const skillsDir = join(host.root, "skills");
+  await mkdir(skillsDir, { recursive: true });
+
+  console.log(`\n${host.name}`);
+
+  for (const name of chosen) {
+    if (await linkSkill(name, source, skillsDir)) {
+      installed.add(name);
+    }
+  }
+}
 
 console.log("");
 
-for (const name of chosen) {
-  if (await linkSkill(name, source)) {
-    await writeWorkspace(name, source, workspace);
-  }
+for (const name of installed) {
+  await writeWorkspace(name, source, workspace);
 }
 
 console.log(`\nDone. Skills live in ${source}; update them with git pull.`);
