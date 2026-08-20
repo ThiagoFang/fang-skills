@@ -6,8 +6,9 @@ Skills for working in Linear, for Claude Code and Codex.
 |---|---|
 | `linear-seed` | Turn a PR, branch, or written description into a project with its issues, or realign a project that has drifted from the code. |
 | `linear-issue` | Create or update standalone issues in a project that already exists. |
+| `linear-complete-issue` | Audit delivered work, attach evidence, reconcile stale issue details, and complete a verified issue. |
 
-Both need the Linear MCP connected (`claude mcp add`).
+All need the Linear MCP connected (`claude mcp add`).
 
 ## Install
 
