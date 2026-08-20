@@ -30,3 +30,7 @@ The source link goes on the project. On issues, only the ones pointing at specif
 ## MCP
 
 Project labels cannot be created through the MCP, only issue labels. Project ones are left to the interface.
+
+## Completion
+
+When delivered work is ready to be audited and closed, use `linear-complete-issue`. This skill does not verify delivery or complete issues.

@@ -32,3 +32,7 @@ In `patch`, to remove a trailing section use `replace` with the exact text; `rep
 ## Whole projects
 
 To seed a project and its issues from a PR or branch, the skill is `linear-seed`.
+
+## Completion
+
+When delivered work is ready to be audited and closed, use `linear-complete-issue`. This skill does not verify delivery or complete issues.
